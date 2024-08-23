@@ -11,4 +11,4 @@ spring:
     password: juntae1111
 
   jpa:
-    show-sql: false
+    show-sql: true
