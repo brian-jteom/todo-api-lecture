@@ -1,6 +1,7 @@
 package com.example.todo_api_lecture.service;
 
 import com.example.todo_api_lecture.entity.Todo;
+import com.example.todo_api_lecture.exception.ResourceNotFoundException;
 import com.example.todo_api_lecture.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,14 +29,14 @@ public class TodoService {
     }
 
     public Todo updateTodo(Long id, Todo todoDetails) {
-        Todo todo = todoRepository.findById(id).orElseThrow( () -> new RuntimeException("Todo not found"));
+        Todo todo = todoRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("Todo not found"));
         todo.setTitle(todoDetails.getTitle());
         todo.setCompleted(todoDetails.getCompleted());
         return todoRepository.save(todo);
     }
 
     public void deleteTodo(Long id) {
-        Todo todo = todoRepository.findById(id).orElseThrow( () -> new RuntimeException("Todo not found"));
+        Todo todo = todoRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("Todo not found"));
         todoRepository.delete(todo);
     }
 

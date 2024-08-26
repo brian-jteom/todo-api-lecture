@@ -2,6 +2,7 @@ package com.example.todo_api_lecture.controller;
 
 
 import com.example.todo_api_lecture.entity.Todo;
+import com.example.todo_api_lecture.exception.ResourceNotFoundException;
 import com.example.todo_api_lecture.service.TodoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @Slf4j
 @RestController
 @RequestMapping("/api/todos")
@@ -27,9 +29,9 @@ public class TodoController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Todo> getAllTodos(@PathVariable("id") Long id) {
+    public ResponseEntity<Todo> getTodoById(@PathVariable("id") Long id) {
 
-        Todo todo = todoService.getTodoById(id).orElseThrow(() -> new RuntimeException("Todo not found"));
+        Todo todo = todoService.getTodoById(id).orElseThrow(() -> new ResourceNotFoundException("Todo not found"));
 
         return ResponseEntity.ok(todo);
     }
