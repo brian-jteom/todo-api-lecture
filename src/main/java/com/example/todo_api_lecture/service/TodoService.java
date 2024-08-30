@@ -4,6 +4,8 @@ import com.example.todo_api_lecture.entity.Todo;
 import com.example.todo_api_lecture.exception.ResourceNotFoundException;
 import com.example.todo_api_lecture.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +17,8 @@ public class TodoService {
     @Autowired
     private TodoRepository todoRepository;
 
-    public List<Todo> getAllTodos() {
-        return todoRepository.findAll();
+    public Page<Todo> getAllTodos(Pageable pageable) {
+        return todoRepository.findAll(pageable);
     }
 
 
